@@ -8,11 +8,14 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Send Discord notification
-        uses: Ilshidur/action-discord@0.3.2
+        uses: appleboy/discord-action@v0.0.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: |
+          message: |
             🚀 **New Push to Master**
             > **Repository:** ${{ github.repository }}
             > **Branch:** ${{ github.ref }}
