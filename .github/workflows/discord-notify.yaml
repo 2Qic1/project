@@ -1,0 +1,23 @@
+name: Discord Notification on Push to Master
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord notification
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: |
+            🚀 **New Push to Master**
+            > **Repository:** ${{ github.repository }}
+            > **Branch:** ${{ github.ref }}
+            > **Author:** ${{ github.actor }}
+            > **Commit:** [View](${{ github.event.head_commit.url }})
+            > **Message:** ${{ github.event.head_commit.message }}
+          avatar: "https://github.com/github.png"
+          username: "GitHub Bot"
