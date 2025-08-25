@@ -9,19 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send Discord notification
-        uses: appleboy/discord-action@v0.0.3
+        uses: tsickert/discord-webhook@v5.3.0
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          embed: true
-          color: "3066993"
-          author_name: "GitHub Bot"
-          author_url: "https://github.com/${{ github.repository }}"
-          author_icon: "https://github.com/github.png"
-          title: "🚀 New Push to Master"
-          url: "https://github.com/${{ github.repository }}/commit/${{ github.sha }}"
-          description: |
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          content: |
+            🚀 **New Push to Master**
             **Repository:** ${{ github.repository }}
             **Branch:** ${{ github.ref }}
             **Author:** ${{ github.actor }}
+            **Commit:** ${{ github.event.head_commit.url }}
             **Message:** ${{ github.event.head_commit.message }}
-          timestamp: true
